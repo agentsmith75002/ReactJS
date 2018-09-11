@@ -11,13 +11,6 @@ const LangBar = ({languages, selectLanguage}) =>
         }
     </ul>
 
-// class Lang extends Component {
-//   render() 
-//   {
-//     return(<h1>{this.props.current}</h1>)
-//   }
-// }
-
 class Popular extends Component {
     constructor() {
       super()
@@ -45,14 +38,13 @@ class Popular extends Component {
           loading: true,
           repos: {},
           selectedLanguage: language
-        })
-        this.refresh();
+        }, () => this.refresh());
     }
 
     refresh()
     {
         console.log('refresh', this.state.selectedLanguage)
-        if(this.state.selectedLanguage == 'All')
+        if(this.state.selectedLanguage === 'All')
         {
             Api.AllLanguage(this.updateItems)
         }
@@ -65,7 +57,7 @@ class Popular extends Component {
     componentWillMount()
     {
       console.log('componentWillMount.data');
-      //Api.AllLanguage(this.updateItems)
+      
       this.refresh()
     }
   
