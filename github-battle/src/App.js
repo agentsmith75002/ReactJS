@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
 
-const axios = require('axios');
+import Axios from 'axios';
 
 
 class Lang extends Component {
@@ -71,9 +71,9 @@ class App extends Component {
   componentWillMount()
   {
     console.log('componentWillMount.data');
-    axios.get('https://api.github.com/search/repositories?q=stars:%3E1&sort=stars&order=desc&type=Repositories')
+    Axios.get('https://api.github.com/search/repositories?q=stars:%3E1&sort=stars&order=desc&type=Repositories')
     .then((response) => {
-      console.log('axios.response.data');
+      console.log('Axios.response.data');
       console.log(response.data);
       this.setState({
         loading: false,
