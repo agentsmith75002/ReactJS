@@ -24,3 +24,17 @@ export const SingleLanguage = (updateItemsCallback, language) => {
     console.log('SingleLanguage call');
     CallUrl(updateItemsCallback, `https://api.github.com/search/repositories?q=stars:>1+language:${language}&sort=stars&order=desc&type=Repositories`)
 }
+
+export const GetLogin = (loginCallback, login) => {
+    console.log('SingleLanguage call');
+    Axios.get('http://api.github.com/users/' + login)
+    .then((response) => {
+      console.log('Axios.response.data');
+      console.log(response.data);
+      loginCallback(response.data)
+    })
+    .catch(function(error)
+    {
+      console.log('SingleLanguage', error);
+    });
+}

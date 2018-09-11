@@ -12,7 +12,7 @@ const Home = () =>
 
 class App extends Component {
   render() {
-    console.clear();
+    //console.clear();
     console.log('App');
     return (
       <Router>
