@@ -1,16 +1,15 @@
 import React, { Component } from 'react';
+import Axios from 'axios';
 import logo from './logo.svg';
 import './App.css';
 
-import Axios from 'axios';
-
-
-class Lang extends Component {
+const Lang = ({current}) => <h1>{current}</h1>
+/*class Lang extends Component {
   render() 
   {
     return(<h1>{this.props.current}</h1>)
   }
-}
+}*/
 
 class Grid extends Component {
   render()
@@ -60,6 +59,38 @@ class Popular extends Component {
   }
 }
 
+class Loader extends Component
+{
+  constructor() {
+    super()
+    this.state = {
+      count: 0
+    }
+  }
+
+  componentDidMount()
+  {
+    this.interval = setInterval(()=>
+    {
+      console.log('Loader.interval', this.state.count);
+      this.setState({count: this.state.count+1});
+    }, 500);
+  }
+
+  componentWillUnmount()
+  {
+    clearInterval(this.interval);
+  }
+
+  render() {
+    let loading = 'Loading'.padEnd((this.state.count%3)+8, '.')
+    console.log('Loader.render', loading)
+    return (
+      <div> {loading}</div>
+    )
+  }
+}
+
 class App extends Component {
   constructor() {
     super()
@@ -79,14 +110,6 @@ class App extends Component {
         loading: false,
         repos: response.data.items
       })
-      //console.log('componentWillMount.status');
-      //console.log(response.status);
-      //console.log('componentWillMount.statusText');
-      //console.log(response.statusText);
-      //console.log('componentWillMount.headers');
-      //console.log(response.headers);
-      //console.log('componentWillMount.config');
-      //console.log(response.config);
     })
     .catch(function(error)
     {
@@ -104,7 +127,7 @@ class App extends Component {
           <h1 className="App-title">Welcome to React</h1>
         </header>
         {
-          (this.state.loading) ? 'Loading...' : <Popular items={this.state.repos} />
+          (this.state.loading) ? <Loader /> : <Popular items={this.state.repos} />
         }
         
       </div>
