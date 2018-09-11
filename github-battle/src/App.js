@@ -1,17 +1,41 @@
 import React, { Component } from 'react';
-import Popular from './Popular';
+import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
+import Popular from './Popular/Popular';
+import Battle from './Battle/Battle';
 import './App.css';
+
+const Home = () =>
+  <div>
+    <h1 className='App'>Github battle: battle your friends...and stuff</h1>
+    <Link className='button' to='/battle'>Battle</Link>
+  </div>
 
 class App extends Component {
   render() {
     console.clear();
+    console.log('App');
     return (
-      <div className="App">
-        <header className="App-header">
-          <h1 className="App-title">Git Battle</h1>
-        </header>
-        <Popular />
-      </div>
+      <Router>
+        <div>
+          <ul className='nav'>
+            <li>
+              <Link to="/">Home</Link>
+            </li>
+            <li>
+              <Link to="/battle">Battle</Link>
+            </li>
+            <li>
+              <Link to="/popular">Popular</Link>
+            </li>
+          </ul>
+
+          <hr />
+
+          <Route exact path="/" component={Home} />
+          <Route path="/battle" component={Battle} />
+          <Route path="/popular" component={Popular} />
+        </div>
+      </Router>
     );
   }
 }

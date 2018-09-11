@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import * as Api from './Api.js';
-import Loader from './Loader';
-import Grid from './GridRepo';
+import * as Api from '../Common/Api.js';
+import Loader from '../Common/Loader.js';
+import Grid from './GridRepo.js';
 
 const allLanguages = 'All'
 const languages = [allLanguages, 'Javascript', 'Ruby', 'Java', 'CSS', 'Python', 'Swift'];
