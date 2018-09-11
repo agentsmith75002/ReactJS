@@ -8,7 +8,7 @@ class Grid extends Component {
       const liste = this.props.items;
       if(liste == null) return(<p>NO !</p>);
       return(<div>
-        Found {this.props.items.length} elements <br />
+        {/* Found {this.props.items.length} elements <br /> */}
         <ul className='popular-list'>
           {
             liste.map((item, idx) => 
