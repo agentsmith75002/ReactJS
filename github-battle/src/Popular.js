@@ -3,11 +3,20 @@ import * as Api from './Api.js';
 import Loader from './Loader';
 import Grid from './GridRepo';
 
-const LangBar = ({languages, selectLanguage}) =>
+const allLanguages = 'All'
+const languages = [allLanguages, 'Javascript', 'Ruby', 'Java', 'CSS', 'Python', 'Swift'];
+
+const LangBar = ({languages, activeLanguage, selectLanguage}) =>
     <ul className='languages'>
         {
             /* WARNING : do not use a direct function, use a delegate */
-            languages.map(item => <li onClick={()=>selectLanguage(item)}>{item}</li>)
+            languages.map((item,idx) => 
+                <li key={idx} 
+                    style={item===activeLanguage ? {color:'red'} : null} 
+                    onClick={()=>selectLanguage(item)}
+                >
+                    {item}
+                </li>)
         }
     </ul>
 
@@ -17,7 +26,7 @@ class Popular extends Component {
       this.state = {
         loading: true,
         repos: {},
-        selectedLanguage: 'All'
+        selectedLanguage: allLanguages
       }
     }
   
@@ -36,15 +45,15 @@ class Popular extends Component {
         console.log('setLanguage', language)
         this.setState({
           loading: true,
-          repos: {},
+          repos: null,
           selectedLanguage: language
-        }, () => this.refresh());
+        }, () => this.fetchRepo());
     }
 
-    refresh()
+    fetchRepo()
     {
-        console.log('refresh', this.state.selectedLanguage)
-        if(this.state.selectedLanguage === 'All')
+        console.log('fetchRepo', this.state.selectedLanguage)
+        if(this.state.selectedLanguage === allLanguages)
         {
             Api.AllLanguage(this.updateItems)
         }
@@ -58,24 +67,19 @@ class Popular extends Component {
     {
       console.log('componentWillMount.data');
       
-      this.refresh()
+      this.fetchRepo()
     }
   
     render()
     {
-        let languages = ['All', 'Javascript', 'Ruby', 'Java', 'CSS', 'Python', 'Swift'];
-        const liste = this.props.items
-        console.log('Popular.render', liste)
         return (
             <div>
-            {
-                (this.state.loading) ? 
-                    <Loader /> :
-                    <div>
-                        <LangBar languages={languages} selectLanguage={this.setLanguage} />
-                        <Grid items={this.state.repos}/>  
-                    </div>
-            }  
+               <LangBar languages={languages} activeLanguage={this.state.selectedLanguage} selectLanguage={this.setLanguage} />
+                {
+                    (this.state.loading) ? 
+                        <Loader /> : 
+                        <Grid items={this.state.repos}/>
+                }  
             </div>
             )
     }
