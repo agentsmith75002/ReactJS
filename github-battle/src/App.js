@@ -12,21 +12,13 @@ const Home = () =>
 
 class App extends Component {
   render() {
-    //console.clear();
-    console.log('App');
     return (
       <Router>
         <div>
           <ul className='nav'>
-            <li>
-              <Link to="/">Home</Link>
-            </li>
-            <li>
-              <Link to="/battle">Battle</Link>
-            </li>
-            <li>
-              <Link to="/popular">Popular</Link>
-            </li>
+            <li><Link to="/">Home</Link></li>
+            <li><Link to="/battle">Battle</Link></li>
+            <li><Link to="/popular">Popular</Link></li>
           </ul>
 
           <hr />

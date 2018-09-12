@@ -1,17 +1,10 @@
-import React, { Component } from 'react';
+import React from 'react';
 
-class PlayerDisplay extends Component {
-    render()
-    {
-        console.log('PlayerDisplay.render', this.props.player)
-        return(
-            <div>
-                <img className='avatar' src={this.props.player.avatar_url} alt='no avatar' />
-                <div>@{this.props.player.login}</div>
-                <button className='reset' onClick={()=>this.props.onReset()}>reset</button>
-            </div>
-        )
-    }
-}
+const PlayerDisplay = ({player, onReset}) =>
+    <div>
+        <img className='avatar' src={player.avatar_url} alt='no avatar' />
+        <div>@{player.login}</div>
+        <button className='reset' onClick={()=>onReset()}>reset</button>
+    </div>
 
 export default PlayerDisplay
