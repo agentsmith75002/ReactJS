@@ -6,7 +6,9 @@ class PlayerDisplay extends Component {
         console.log('PlayerDisplay.render', this.props.player)
         return(
             <div>
-                {this.props.player}
+                <img className='avatar' src={this.props.player.avatar_url} alt='no avatar' />
+                <div>@{this.props.player.login}</div>
+                <button className='reset' onClick={()=>this.props.onReset()}>reset</button>
             </div>
         )
     }

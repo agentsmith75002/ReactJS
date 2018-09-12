@@ -7,21 +7,11 @@ class PlayerForm extends Component {
       super(props);
       this.state = {value: ''};
     }
-
-    displayPlayer = (player) => {
-        console.log('displayPlayer', player)
-        this.props.onPlayerLoaded(player)
-    }
-  
-    handleChange = (event) => {
-        console.log('handleChange', event.target.value)
-        this.setState({value: event.target.value});
-    }
   
     handleSubmit = (event) => {
         console.log('A name was submitted: ' + this.state.value);
         event.preventDefault();
-        Api.GetLogin(this.displayPlayer, this.state.value);
+        Api.GetLogin((player)=>this.props.onPlayerLoaded(player), this.state.value);
     }
   
     render() {
@@ -29,8 +19,8 @@ class PlayerForm extends Component {
         <form onSubmit={this.handleSubmit}>
             <label className='header'>{`Player ${this.props.number}`}</label>
             <br />
-            <input type="text" value={this.state.value} onChange={this.handleChange} />
-            <button className='button' type="submit">Submit</button>
+            <input type="text" value={this.state.value} onChange={(event) => this.setState({value: event.target.value})} />
+            <button disabled={this.state.value===''} className='button' type="submit">Submit</button>
         </form>
       );
     }
